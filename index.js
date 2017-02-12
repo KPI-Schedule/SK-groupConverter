@@ -3,13 +3,12 @@ const en = require('./en');
 const ru = require('./ru');
 
 const getGroups = new Promise((resolve, reject) => {
-  https.get('https://apischedule.herokuapp.com/api/groups', (res) => { 
+  https.get('https://apischedule.herokuapp.com/api/groups', (res) => {
     const statusCode = res.statusCode;
-    const contentType = res.headers['content-type'];
 
     let error;
     if (statusCode !== 200) {
-      error = new Error(`Request Failed.\n` +
+      error = new Error('Request Failed.\n' +
                         `Status Code: ${statusCode}`);
     }
 
@@ -21,7 +20,7 @@ const getGroups = new Promise((resolve, reject) => {
 
     res.setEncoding('utf8');
     let data = '';
-    res.on('data', (chunk) => data += chunk);
+    res.on('data', chunk => (data += chunk));
     res.on('end', () => {
       try {
         resolve(JSON.parse(data));
@@ -36,39 +35,39 @@ const getGroups = new Promise((resolve, reject) => {
 
 getGroups.then((response) => {
   const groups = response.map((group) => {
-    let enName = '', ruName = '', uaName = '';
+    let enGroup = '';
+    let ruGroup = '';
     group.name.split('').map((symbol) => {
-      uaName += symbol;
-      if (isNaN(parseInt(symbol)) && [' ', '-', '(', ')', '/', ','].indexOf(symbol) < 0) {
+      if (isNaN(parseInt(symbol, 10)) && [' ', '-', '(', ')', '/', ','].indexOf(symbol) < 0) {
         if (typeof ru(symbol) === 'undefined') {
-          if (symbol === 'i') {
-            enName += 'i';
-            ruName += 'и';
-          } else if (symbol === 'c') {
-            enName += 'c';
-            ruName += 'с';
+          switch (symbol) {
+            case 'i': enGroup += 'i'; ruGroup += 'и'; break;
+            case 'c': enGroup += 'c'; ruGroup += 'с'; break;
+            default: break;
           }
         } else {
-          enName += en(symbol);
-          ruName += ru(symbol);
+          enGroup += en(symbol);
+          ruGroup += ru(symbol);
         }
       } else {
-        enName += symbol;
-        ruName += symbol;
+        enGroup += symbol;
+        ruGroup += symbol;
       }
+      return true;
     });
     return {
       id: group.id,
       name: {
-        enName: enName,
-        ruName: ruName,
-        uaName: uaName
-      }
-    }
+        enName: enGroup,
+        ruName: ruGroup,
+        uaName: group.name,
+      },
+    };
   });
   console.log(groups);
+  // Here will be POST request
 });
 
-getGroups.catch(function () {
-  console.log("Promise Rejected");
+getGroups.catch(() => {
+  console.log('Promise rejected');
 });

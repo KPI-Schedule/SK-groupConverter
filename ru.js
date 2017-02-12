@@ -1,5 +1,5 @@
 module.exports = function ru(letter) {
-  switch(letter) {
+  switch (letter) {
     case 'а': return 'а';
     case 'б': return 'б';
     case 'в': return 'в';
@@ -22,5 +22,7 @@ module.exports = function ru(letter) {
     case 'х': return 'х';
     case 'ц': return 'ц';
     case 'я': return 'я';
+    default: break;
   }
-}
+  return true;
+};

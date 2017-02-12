@@ -1,5 +1,5 @@
 module.exports = function en(letter) {
-  switch(letter) {
+  switch (letter) {
     case 'а': return 'a';
     case 'б': return 'b';
     case 'в': return 'v';
@@ -22,5 +22,7 @@ module.exports = function en(letter) {
     case 'х': return 'h';
     case 'ц': return 'c';
     case 'я': return 'y';
+    default: break;
   }
-}
+  return true;
+};

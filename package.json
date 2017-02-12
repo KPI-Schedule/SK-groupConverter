@@ -1,0 +1,31 @@
+{
+  "name": "sk-groupconverter",
+  "version": "1.0.0",
+  "description": "Converter for KPI group names to Ukrainian, Russian and English.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint-staged": "lint-staged"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KPI-Schedule/SK-groupConverter.git"
+  },
+  "author": "Oleh Aloshkin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KPI-Schedule/SK-groupConverter/issues"
+  },
+  "homepage": "https://github.com/KPI-Schedule/SK-groupConverter#readme",
+  "devDependencies": {
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb-base": "^11.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "lint-staged": "^3.3.0",
+    "pre-commit": "^1.2.2"
+  },
+  "lint-staged": {
+    "*.js": "eslint"
+  },
+  "pre-commit": "lint-staged"
+}
