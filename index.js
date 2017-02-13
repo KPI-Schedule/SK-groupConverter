@@ -8,8 +8,7 @@ const getGroups = new Promise((resolve, reject) => {
 
     let error;
     if (statusCode !== 200) {
-      error = new Error('Request Failed.\n' +
-                        `Status Code: ${statusCode}`);
+      error = new Error(`'Request Failed.\n' Status Code: ${statusCode}`);
     }
 
     if (error) {
@@ -64,8 +63,22 @@ getGroups.then((response) => {
       },
     };
   });
-  console.log(groups);
-  // Here will be POST request
+
+  const request = https.request({
+    hostname: 'jsonplaceholder.typicode.com',
+    method: 'POST',
+    path: '/posts',
+  }, (resp) => {
+    resp.on('data', (chunk) => {
+      console.log(chunk.toString('utf8'));
+    });
+    resp.on('error', (e) => {
+      console.log(new Error(`Request Failed.\n Error: ${e}`));
+    });
+  });
+
+  request.write(JSON.stringify(groups));
+  request.end();
 });
 
 getGroups.catch(() => {
