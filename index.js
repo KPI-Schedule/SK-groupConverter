@@ -58,9 +58,9 @@ getGroups.then((response) => {
     return {
       id: group.id,
       name: {
-        enName: enGroup,
-        ruName: ruGroup,
-        uaName: group.name,
+        en: enGroup,
+        ru: ruGroup,
+        ua: group.name,
       },
     };
   });
