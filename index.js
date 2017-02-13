@@ -73,7 +73,7 @@ getGroups.then((response) => {
       console.log(chunk.toString('utf8'));
     });
     resp.on('error', (e) => {
-      console.log(new Error(`Request Failed.\n Error: ${e}`));
+      console.log(new Error(`Request Failed.\n Got error: ${e.message}`));
     });
   });
 
