@@ -65,9 +65,9 @@ getGroups.then((response) => {
   });
 
   const request = https.request({
-    hostname: 'jsonplaceholder.typicode.com',
+    hostname: 'apischedule.herokuapp.com',
     method: 'POST',
-    path: '/posts',
+    path: '/api/groups',
   }, (resp) => {
     resp.on('data', (chunk) => {
       console.log(chunk.toString('utf8'));
